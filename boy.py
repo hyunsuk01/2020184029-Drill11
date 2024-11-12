@@ -156,6 +156,7 @@ class Boy:
         #충돌 영역 그리기
         draw_rectangle(*self.get_bb()) # *는 튜플의 내용을 풀어서 4개의 인자로 전달
 
+
     def fire_ball(self):
         if self.ball_count > 0:
             self.ball_count -= 1
@@ -170,4 +171,7 @@ class Boy:
     def handle_collision(self, group, other):
         if group == 'boy:ball':
             self.ball_count += 1
+        if group == 'boy:zombie':
+            game_world.remove_object(self)
+            game_framework.quit()
         pass

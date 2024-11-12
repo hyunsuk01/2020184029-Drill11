@@ -4,6 +4,7 @@ from pico2d import *
 import game_framework
 
 import game_world
+import zombie
 from grass import Grass
 from boy import Boy
 from ball import Ball
@@ -31,7 +32,7 @@ def init():
     game_world.add_object(boy, 1)
 
     global balls
-    balls = [ Ball(random.randint(100, 1500), 60, 0) for _ in range(30) ]
+    balls = [ Ball(random.randint(100, 700), 60, 0) for _ in range(30) ]
     game_world.add_objects(balls, 1)
 
     # 좀비 5마리 추가
@@ -42,6 +43,14 @@ def init():
     game_world.add_collision_pair('boy:ball', boy, None)
     for ball in balls:
         game_world.add_collision_pair('boy:ball', None, ball)
+
+    for ball in balls:
+        for zombie in zombies:
+            game_world.add_collision_pair('ball:zombie', ball, zombie)
+
+    game_world.add_collision_pair('boy:zombie', boy, None)
+    for zombie in zombies:
+        game_world.add_collision_pair('boy:zombie', None, zombie)
 
 
 
